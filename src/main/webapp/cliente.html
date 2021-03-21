@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    </head>
+    <body>
+         <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+            <!-- Brand -->
+            <a class="navbar-brand" href="index.jsp">FUBOL</a>
+
+            <!-- Toggler/collapsibe Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="servletEquipos?op=listar">listar Equipos</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="cliente.html">Rest Cliente</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="servletEquipos?op=insert1">Insertar nuevo equipo</a>
+                </li>
+              
+              </ul>
+            </div>
+        </nav>
+         <h1>Prueba REST</h1>
+            ID:<input type="text" id="id2" name="id2" class="form-control">          
+             <button class="btn btn-primary" id="btnAddArticle2" onclick="borrarEquipo()">Borrar</button>
+            <h1>Crear Equipo</h1>
+            <form id="frmCrear" method="post" action="#">
+                Id: <input class="form-control" type="text" id="id" name="id"><br>
+                Nombre: <input class="form-control" type="text" id="nombre" name="nombre">
+                Pais: <input class="form-control" type="text" id="pais" name="pais">
+                Ciudad: <input class="form-control" type="text" id="ciudad" name="ciudad">
+                Presupuesto: <input class="form-control" type="text" id="presupuesto" name="presupuesto">
+                Escudo <input class="form-control" type="text" id="escudo" name="escudo">
+                
+                <button class="btn btn-primary" id="btnAddArticle" onclick="agregaEquipo()">Crear</button>
+                <button class="btn btn-primary" id="btnAddArticle1" onclick="actualizaEquipo()">Actualizar</button>
+            </form>
+             <script>
+             
+            function agregaEquipo(){
+                var url="http://localhost:8080/futbolCRUD/webresources/rest/equipo/";
+                method="post";
+                data = {nombre: document.getElementById("nombre").value,
+                        pais:document.getElementById("pais").value,
+                        ciudad:document.getElementById("ciudad").value,
+                        escudo:document.getElementById("escudo").value,
+                        presupuesto: parseFloat(document.getElementById("presupuesto").value)};
+                var xhr = new XMLHttpRequest();
+                xhr.open(method,url,true);
+                xhr.setRequestHeader('Content-Type','application/json;charset="utf-8"');
+                xhr.send(JSON.stringify(data));
+                
+            };
+            
+            function actualizaEquipo(){
+                var url="http://localhost:8080/futbolCRUD/webresources/rest/equipo/";
+                method="put";
+                data = {id:parseInt(document.getElementById("id").value),
+                        nombre: document.getElementById("nombre").value,
+                        pais:document.getElementById("pais").value,
+                        ciudad:document.getElementById("ciudad").value,
+                        escudo:document.getElementById("escudo").value,
+                        presupuesto: parseFloat(document.getElementById("presupuesto").value)};
+                var xhr = new XMLHttpRequest();
+                xhr.open(method,url,true);
+                xhr.setRequestHeader('Content-Type','application/json;charset="utf-8"');
+                xhr.send(JSON.stringify(data));
+                
+            };
+            
+            function borrarEquipo(){
+                var url="http://localhost:8080/futbolCRUD/webresources/rest/equipo/";
+                method="delete";
+                var xhr = new XMLHttpRequest();
+                xhr.open(method,url+document.getElementById("id2").value,true);
+                xhr.send();
+            }
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+    </body>
+</html>
